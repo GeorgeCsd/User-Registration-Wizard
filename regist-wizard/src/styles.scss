@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+html{
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));}
+
+html, body{
+  height: 100%;}
+
+body{
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color-scheme: light;
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  background:
+  linear-gradient(180deg, #062a7d 0%, #051434 100%);
+  min-height: 100vh;}
+
+.app-window{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;}

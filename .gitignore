@@ -1,0 +1,73 @@
+# ==== OS junk ====
+.DS_Store
+Thumbs.db
+Icon?
+
+# ==== Editors / IDEs ====
+.vs/
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# VS Code (keep common workspace files if you use them)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ==== Logs / temp ====
+*.log
+npm-debug.log*
+yarn-error.log*
+libpeerconnection.log
+testem.log
+tmp/
+temp/
+
+# =========================
+# FRONTEND: regist-wizard
+# =========================
+/regist-wizard/node_modules/
+/regist-wizard/dist/
+/regist-wizard/out-tsc/
+/regist-wizard/.angular/cache/
+/regist-wizard/coverage/
+
+# If you ever add these, ignore them too:
+#/regist-wizard/.sass-cache/
+/regist-wizard/.env
+/regist-wizard/.env.local
+
+# =========================
+# BACKEND: RegistWizard.Api
+# =========================
+/RegistWizard.Api/bin/
+/RegistWizard.Api/obj/
+
+# Optional: ignore only local settings (keep non-secret appsettings.* in repo)
+# Uncomment if you store local-only configs:
+#/RegistWizard.Api/appsettings.Development.json
+#/RegistWizard.Api/appsettings.Local.json
+#/RegistWizard.Api/appsettings.*.local.json
+
+# =========================
+# General Node/Angular anywhere (safety net)
+# =========================
+**/node_modules/
+**/dist/
+**/out-tsc/
+**/.angular/cache/
+**/coverage/
+
+# =========================
+# Environment / secrets (optional)
+# =========================
+**/*.env
+**/*.env.local
+**/*.secret.*
+**/secrets.json

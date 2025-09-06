@@ -1,0 +1,120 @@
+<mat-card>
+  <h2 class="title">Registration Wizard</h2>
+  <p class="subtitle">Create your company and administrator account in three quick steps</p>
+  <mat-divider></mat-divider>
+  <mat-horizontal-stepper #stepper="matHorizontalStepper" [linear]="true">
+    <mat-step [stepControl]="companyForm" label="Company">
+      <form [formGroup]="companyForm">
+
+        <div class="property">
+          <mat-form-field appearance="outline" class="full">
+            <mat-label>Company's Name</mat-label>
+            <input matInput formControlName="name"/>
+            <mat-error *ngIf="companyForm.controls['name'].touched && companyForm.controls['name'].invalid">Name is required(2-200)</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full">
+            <mat-label>Industry</mat-label>
+              <mat-select formControlName="industryId" [disabled]="loadingIndustries">
+              <mat-option [value]="null">Select an industry</mat-option>
+              <mat-option *ngFor="let industries of industries" [value]="industries.id">{{industries.name}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="companyForm.controls['industryId'].touched && companyForm.controls['industryId'].invalid">Industry is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="step-controls">
+          <button mat-raised-button color="primary" (click)="checkUserCompany()">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+  
+    <mat-step [stepControl]="userForm" label="User">
+      <form [formGroup]="userForm">
+        <div class="property">
+          <mat-form-field appearance="outline" class="half">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName"/>
+          </mat-form-field>
+        </div>
+
+        <div class="property">
+          <mat-form-field appearance="outline" class="half">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="userName"/>
+            <button mat-icon-button matSuffix (click)="checkUsername()" [disabled]="checkingUsername" aria-label="Check username">
+              <mat-icon>search</mat-icon>
+            </button>
+            <mat-hint *ngIf="usernameAvailable === true" class="ok">✓ Available</mat-hint>
+            <mat-hint *ngIf="usernameAvailable === false" class="err">✗ Taken</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="property">
+          <mat-form-field appearance="outline" class="half">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password"/>
+            <mat-hint>Min 8,include uppercase,digit,special char</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="half">
+            <mat-label>Repeat Password</mat-label>
+            <input matInput type="password" formControlName="passwordRepeat"/>
+          </mat-form-field>
+        </div>
+
+        
+        <div class="property">
+          <mat-form-field appearance="outline" class="half">
+            <mat-label>Email (optional)</mat-label>
+            <input matInput type="email" formControlName="email"/>
+          </mat-form-field>
+        </div>
+
+        <div class="step-controls">
+          <button mat-button (click)="previousStep()">Back</button>
+          <button mat-raised-button color="primary" (click)="checkUserForm()">Next</button> 
+        </div>
+      </form>
+    </mat-step>
+
+
+
+    <mat-step [stepControl]="summaryForm" label="Summary">
+      <form [formGroup]="summaryForm">
+        <mat-checkbox formControlName="termsofServiceAccepted">I accept the Terms of Service</mat-checkbox>
+
+    <div class="mat-error"
+    *ngIf="summaryForm.controls['termsofServiceAccepted'].touched && summaryForm.controls['termsofServiceAccepted'].invalid">
+    You must accept the Terms of Service </div>
+    <br />
+    <mat-checkbox formControlName="privacyPolicyAccepted">I accept the Privacy Policy</mat-checkbox>
+    <div class="mat-error"
+    *ngIf="summaryForm.controls['privacyPolicyAccepted'].touched && summaryForm.controls['privacyPolicyAccepted'].invalid">
+    You must accept the Terms of Service </div>
+
+    <mat-card class="review">
+      <h3>Review</h3>
+      <p><b>Company:</b>{{companyForm.value.name}} (Industry :{{getIndustryName(companyForm.value.industryId)}})</p>
+      <p><b>User:</b>{{userForm.value.firstName}}{{userForm.value.name}}({{userForm.value.userName}})</p>
+      <p><b>Email:</b>{{userForm.value.email||'—'}}</p>
+    </mat-card>
+
+    <div class="step-controls">
+          <button mat-button (click)="previousStep()">Back</button>
+          <button mat-raised-button color="accent" (click)="submit()" [disabled]="canSubmit">
+            <mat-progress-spinner *ngIf="canSubmit" diameter="18" mode="indeterminate"></mat-progress-spinner>
+            <span *ngIf="!canSubmit">Submit</span>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    
+  </mat-horizontal-stepper>
+  </mat-card>
