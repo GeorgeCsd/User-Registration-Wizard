@@ -7,6 +7,14 @@ using RegistWizard.Api.Models;
 
 namespace RegistWizard.Api.Controllers
 {
+    /// <summary>
+    /// API controller for handling user registration.
+    /// </summary>
+    /// <remarks>
+    /// Exposes endpoints to register new companies and users.  
+    /// Current functionality:  
+    /// - POST /api/registration → creates a company and a user account in one transaction.  
+    /// </remarks>
     [Route("api/registration")]
     [ApiController]
     public class RegistrationController : ControllerBase
@@ -23,6 +31,19 @@ namespace RegistWizard.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Registers a new company and a user account in the system.
+        /// </summary>
+        /// <remarks>
+        /// Input: A <see cref="RegistrationRequest"/> containing company and user details.  
+        /// Output: A <see cref="RegistrationResponse"/> indicating success or failure with a message.  
+        /// </remarks>
+        /// <param name="request">The registration data (company info and user credentials).</param>
+        /// <returns>
+        /// 200 OK → registration succeeded.  
+        /// 400 Bad Request → invalid data or errors during creation.  
+        /// 409 Conflict → username already exists.  
+        /// 
         [HttpPost]
         public async Task<ActionResult<RegistrationResponse>> Register([FromBody] RegistrationRequest request)
         {

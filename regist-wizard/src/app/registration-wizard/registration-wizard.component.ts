@@ -74,10 +74,18 @@ export class RegistrationWizardComponent implements OnInit{
 
    }
 
+   /**
+   * Initializes the component: loads required data.
+   * @returns {void}
+   */
   ngOnInit(): void {
     this.loadAllIndustries();
   }
 
+  /**
+   * Loads industries into state using the API.
+   * @returns {void}
+   */
   loadAllIndustries(): void{
     this.loadingIndustries = true;
     this.api.getIndustries().subscribe({
@@ -92,11 +100,20 @@ export class RegistrationWizardComponent implements OnInit{
     })
   }
 
+  /**
+  * Resolves an industry name given its id.
+  * @param {number} id
+  * @returns {string} Display name or empty string if not found.
+  */
   getIndustryName(id: number): string {
   const industry = this.industries.find(i => i.id === id);
   return industry ? industry.name : '';
 }
 
+ /**
+  * Checks server-side availability of the entered username.
+  * @returns {void}
+  */ 
   checkUsername(): void{
     const formValue =(this.userForm.value.userName || '') as string;
     const username = formValue.trim();
@@ -119,6 +136,10 @@ export class RegistrationWizardComponent implements OnInit{
 
   }
 
+  /**
+  * Validates company form and advances the stepper.
+  * @returns {void}
+  */
   checkUserCompany(): void{
     if(this.companyForm.invalid){
       this.companyForm.markAllAsTouched();
@@ -128,6 +149,10 @@ export class RegistrationWizardComponent implements OnInit{
 
   }
 
+  /**
+  * Validates user form, ensures passwords match, and advances the stepper.
+  * @returns {void}
+  */
   checkUserForm(): void{
     if(this.userForm.invalid){
       this.userForm.markAllAsTouched();
@@ -143,10 +168,18 @@ export class RegistrationWizardComponent implements OnInit{
     this.stepper.next();
   }
 
+  /**
+  * Goes back one step in the wizard.
+  * @returns {void}
+  */
   previousStep(): void{
     this.stepper.previous();
   }
 
+  /**
+  * Submits all forms: validates, builds payload, calls API, and handles result.
+  * @returns {void}
+  */
   submit(): void{
     this.companyForm.markAllAsTouched();
     this.userForm.markAllAsTouched();

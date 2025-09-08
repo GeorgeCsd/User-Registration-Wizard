@@ -2,10 +2,15 @@
   <h2 class="title">Registration Wizard</h2>
   <p class="subtitle">Create your company and administrator account in three quick steps</p>
   <mat-divider></mat-divider>
+
+  <!-- Stepper navigation across three forms -->
   <mat-horizontal-stepper #stepper="matHorizontalStepper" [linear]="true">
+
+    <!-- Step 1: Company form -->
     <mat-step [stepControl]="companyForm" label="Company">
       <form [formGroup]="companyForm">
 
+        <!-- Company name and industry selection -->
         <div class="property">
           <mat-form-field appearance="outline" class="full">
             <mat-label>Company's Name</mat-label>
@@ -30,9 +35,11 @@
     </mat-step>
 
 
-  
+
+  <!-- Step 2: User form -->
     <mat-step [stepControl]="userForm" label="User">
       <form [formGroup]="userForm">
+        <!-- Name + first name -->
         <div class="property">
           <mat-form-field appearance="outline" class="half">
             <mat-label>Name</mat-label>
@@ -45,6 +52,7 @@
           </mat-form-field>
         </div>
 
+        <!-- Username with availability check -->
         <div class="property">
           <mat-form-field appearance="outline" class="half">
             <mat-label>Username</mat-label>
@@ -57,6 +65,7 @@
           </mat-form-field>
         </div>
 
+        <!-- Password + repeat -->
         <div class="property">
           <mat-form-field appearance="outline" class="half">
             <mat-label>Password</mat-label>
@@ -69,7 +78,8 @@
           </mat-form-field>
         </div>
 
-        
+
+        <!-- Optional email -->
         <div class="property">
           <mat-form-field appearance="outline" class="half">
             <mat-label>Email (optional)</mat-label>
@@ -77,6 +87,7 @@
           </mat-form-field>
         </div>
 
+        <!-- Navigation -->
         <div class="step-controls">
           <button mat-button (click)="previousStep()">Back</button>
           <button mat-raised-button color="primary" (click)="checkUserForm()">Next</button> 
@@ -85,9 +96,10 @@
     </mat-step>
 
 
-
+    <!-- Step 3: Summary + submit -->
     <mat-step [stepControl]="summaryForm" label="Summary">
       <form [formGroup]="summaryForm">
+      <!-- Terms and Privacy checkboxes -->  
         <mat-checkbox formControlName="termsofServiceAccepted">I accept the Terms of Service</mat-checkbox>
 
     <div class="mat-error"
@@ -98,7 +110,8 @@
     <div class="mat-error"
     *ngIf="summaryForm.controls['privacyPolicyAccepted'].touched && summaryForm.controls['privacyPolicyAccepted'].invalid">
     You must accept the Terms of Service </div>
-
+    
+    <!-- Review card -->
     <mat-card class="review">
       <h3>Review</h3>
       <p><b>Company:</b>{{companyForm.value.name}} (Industry :{{getIndustryName(companyForm.value.industryId)}})</p>
@@ -106,6 +119,7 @@
       <p><b>Email:</b>{{userForm.value.email||'—'}}</p>
     </mat-card>
 
+    <!-- Final navigation -->
     <div class="step-controls">
           <button mat-button (click)="previousStep()">Back</button>
           <button mat-raised-button color="accent" (click)="submit()" [disabled]="canSubmit">

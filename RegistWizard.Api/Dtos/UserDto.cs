@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace RegistWizard.Api.Dtos;
 
+/// <summary>
+/// Data Transfer Object (DTO) representing a user in the registration process.
+/// </summary>
+/// <remarks>
+/// Contains personal details, login credentials, and optional email.  
+/// Used when creating a new account during registration.  
+/// </remarks>
 public class UserDto
 {
     [Required, StringLength(120)]
