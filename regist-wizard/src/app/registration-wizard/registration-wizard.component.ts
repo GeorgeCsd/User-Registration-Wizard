@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from '../api.service';
 import { IndustryDto, RegistrationRequest } from '../models';
 import { MatDividerModule } from '@angular/material/divider';
+import { Router } from '@angular/router';
 
 @Component({
   standalone:true,
@@ -51,7 +52,7 @@ export class RegistrationWizardComponent implements OnInit{
    summaryForm:FormGroup;
 
    constructor(private formb: FormBuilder,
-    private api: ApiService,private matsnack: MatSnackBar
+    private api: ApiService,private matsnack: MatSnackBar,private router: Router
    ){
     this.companyForm = this.formb.group({
       name:['',[Validators.required, Validators.minLength(2), Validators.maxLength(200)]],
@@ -177,7 +178,8 @@ export class RegistrationWizardComponent implements OnInit{
   }
 
   /**
-  * Submits all forms: validates, builds payload, calls API, and handles result.
+  * Submits all forms: validates, builds payload, calls API,handles result and navigate to login 
+  * page if succeful.
   * @returns {void}
   */
   submit(): void{
@@ -234,6 +236,7 @@ export class RegistrationWizardComponent implements OnInit{
           this.summaryForm.reset({termsofServiceAccepted: false,privacyPolicyAccepted: false});
           this.usernameAvailable=null;
           this.stepper.reset();
+          this.router.navigate(['/login']);
         }
         else{
           this.matsnack.open(res.message || "Your registration has failed","Close",{duration:3500});

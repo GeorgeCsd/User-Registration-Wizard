@@ -44,3 +44,24 @@ export interface RegistrationResponse{
     message: string;
 
 }
+
+export interface LoginRequest{
+
+    userName: string;
+    password: string;
+
+}
+
+export interface LoginResponse{
+
+    success: boolean;
+    message: string;
+    token?: string;
+    expiresAtUtc?: string;
+    userName?: string;
+    email?: string | null;
+    name?: string;
+    firstName?: string;
+    companyId?: number;
+
+}

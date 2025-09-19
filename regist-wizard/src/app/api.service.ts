@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../enviroments/enviroment';
 import { IndustryDto, RegistrationRequest, RegistrationResponse } from './models';
+import { LoginRequest, LoginResponse } from './models';
 
 @Injectable({providedIn: 'root'})
 export class ApiService{
@@ -41,4 +42,14 @@ export class ApiService{
         return this.http.post<RegistrationResponse>(`${this.baseUrl}/registration`, payload)
     }
     
+    /**
+    * Authenticates a user with the provided credentials.
+    *
+    * @param payload Login details containing username and password.
+    * @returns {Observable<LoginResponse>} API response after login attempt.
+    */
+    login(payload: LoginRequest){
+        return this.http.post<LoginResponse>(`${this.baseUrl}/authentication/login`, payload);
+    }
+
 }
